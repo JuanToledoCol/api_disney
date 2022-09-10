@@ -1,5 +1,9 @@
 package com.disney.alkemy.dtos;
 
+import java.util.List;
+
+import com.disney.alkemy.models.PeliculaSerie;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,4 +23,6 @@ public class PersonajeDTO {
 	private int edad;
 	private double peso;
 	private String historia;
+
+	private List<PeliculaSerie> peliculaSerie;
 }

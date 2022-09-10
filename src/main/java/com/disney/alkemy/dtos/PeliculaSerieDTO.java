@@ -1,6 +1,10 @@
 package com.disney.alkemy.dtos;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.disney.alkemy.models.Genero;
+import com.disney.alkemy.models.Personaje;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,5 +23,9 @@ public class PeliculaSerieDTO {
 	private String titulo;
 	private LocalDate fechaCreacion;
 	private int calificacion;
-	
+	private String imagen;
+
+	private List<Genero> generos;
+	private List<Personaje> personajes;
+
 }

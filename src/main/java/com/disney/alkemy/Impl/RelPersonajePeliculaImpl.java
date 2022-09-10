@@ -1,15 +1,15 @@
-package com.disney.alkemy.repositoriesImpl;
+package com.disney.alkemy.Impl;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.disney.alkemy.daos.RelPersonajePeliculaDao;
 import com.disney.alkemy.exceptions.GeneralServiceException;
 import com.disney.alkemy.exceptions.NoDataFoundException;
 import com.disney.alkemy.exceptions.ValidateServiceException;
 import com.disney.alkemy.models.RelPersonajePelicula;
-import com.disney.alkemy.repositories.RelPersonajePeliculaRepository;
 import com.disney.alkemy.validators.RelPersonajePeliculaValidator;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 public class RelPersonajePeliculaImpl {
 
 	@Autowired
-	private RelPersonajePeliculaRepository repository;
-	
+	private RelPersonajePeliculaDao repository;
+
 	@Transactional
 	public void delete(Long idRel) {
 		try {
@@ -35,7 +35,7 @@ public class RelPersonajePeliculaImpl {
 			throw new GeneralServiceException(e.getMessage(), e);
 		}
 	}
-	
+
 	@Transactional
 	public RelPersonajePelicula create(RelPersonajePelicula relPerPeli) {
 		try {
@@ -50,21 +50,22 @@ public class RelPersonajePeliculaImpl {
 			throw new GeneralServiceException(e.getMessage(), e);
 		}
 	}
-	
+
 	@Transactional
 	public RelPersonajePelicula update(RelPersonajePelicula relPerPeli) {
 		try {
 			RelPersonajePeliculaValidator.validate(relPerPeli);
-			
-			
+
+
 			RelPersonajePelicula relUp = repository.findById(relPerPeli.getIdRelPersonajePelicula())
 					.orElseThrow(()-> new NoDataFoundException("No exist the relation."));
-			
+
 			relUp.setIdPeliculaSerie(relPerPeli.getIdPeliculaSerie());
 			relUp.setIdPersonaje(relPerPeli.getIdPersonaje());
-			
+
+
 			repository.save(relUp);
-			
+
 			return relUp;
 		} catch (NoDataFoundException | ValidateServiceException e) {
 			log.info(e.getMessage(), e);

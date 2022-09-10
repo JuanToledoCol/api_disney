@@ -18,5 +18,5 @@ public class RelPersonajePeliculaDTO {
 
 	private Long idRelPersonajePelicula;
 	private Personaje idPersonaje;
-	private PeliculaSerie idPeliculasSeries;
+	private PeliculaSerie idPeliculaSerie;
 }

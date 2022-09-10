@@ -28,11 +28,11 @@ public class RelPersonajePelicula {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idRelPersonajePelicula")
 	private Long idRelPersonajePelicula;
-	
+
 	@JoinColumn(name = "fkIdPersonaje" ,referencedColumnName = "idPersonaje")
 	@ManyToOne(optional = false)
 	private Personaje idPersonaje;
-	
+
 	@JoinColumn(name = "fkIdPeliculaSerie", referencedColumnName = "idPeliculaSerie")
 	@ManyToOne(optional = false)
 	private PeliculaSerie idPeliculaSerie;

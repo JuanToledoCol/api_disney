@@ -13,7 +13,8 @@ public class PersonajeConv extends AbsConverter<Personaje, PersonajeDTO>{
 				.imagen(dto.getImagen())
 				.edad(dto.getEdad())
 				.peso(dto.getPeso())
-				.historia(dto.getHistoria()).build();
+				.historia(dto.getHistoria())
+				.peliculasSeries(dto.getPeliculaSerie()).build();
 	}
 
 	@Override
@@ -24,7 +25,8 @@ public class PersonajeConv extends AbsConverter<Personaje, PersonajeDTO>{
 				.imagen(entity.getImagen())
 				.edad(entity.getEdad())
 				.peso(entity.getPeso())
-				.historia(entity.getHistoria()).build();
+				.historia(entity.getHistoria())
+				.peliculaSerie(entity.getPeliculasSeries()).build();
 	}
 
 }

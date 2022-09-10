@@ -11,7 +11,11 @@ public class PeliculaSerieConv extends AbsConverter<PeliculaSerie, PeliculaSerie
 				.idPeliculaSerie(dto.getIdPeliculasSeries())
 				.titulo(dto.getTitulo())
 				.fechaCreacion(dto.getFechaCreacion())
-				.calificacion(dto.getCalificacion()).build();
+				.calificacion(dto.getCalificacion())
+				.imagen(dto.getImagen())
+				.generos(dto.getGeneros())
+				.personajes(dto.getPersonajes())
+				.build();
 	}
 
 	@Override
@@ -21,6 +25,9 @@ public class PeliculaSerieConv extends AbsConverter<PeliculaSerie, PeliculaSerie
 				.titulo(entity.getTitulo())
 				.fechaCreacion(entity.getFechaCreacion())
 				.calificacion(entity.getCalificacion())
+				.imagen(entity.getImagen())
+				.generos(entity.getGeneros())
+				.personajes(entity.getPersonajes())
 				.build();
 	}
 

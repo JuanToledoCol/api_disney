@@ -9,7 +9,7 @@ public class RelPersonajePeliculaValidator {
 		if(rel.getIdPeliculaSerie()== null) {
 			throw new ValidateServiceException("The idPeli is null");
 		}
-		
+
 		if(rel.getIdPersonaje()== null) {
 			throw new ValidateServiceException("The idPersonaje is null");
 		}

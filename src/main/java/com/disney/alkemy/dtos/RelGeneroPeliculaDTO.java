@@ -18,5 +18,5 @@ public class RelGeneroPeliculaDTO {
 
 	private Long idRelGeneroPelicula;
 	private Genero idGenero;
-	private PeliculaSerie idPeliculasSeries;
+	private PeliculaSerie idPeliculaSerie;
 }
