@@ -13,7 +13,6 @@ import lombok.Setter;
 @Builder
 public class UsuarioDTO {
 
-	private Long idUsuario;
 	private String usuario;
 	private String clave;
 }

@@ -19,12 +19,12 @@ public class UsuarioAuthentication implements UserDetails {
 
 	private Usuario usuario;
 	private Collection<? extends GrantedAuthority> authorities;
-	
+
 	public static UsuarioAuthentication create(Usuario usuario) {
 		List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 		return new UsuarioAuthentication(usuario, authorities);
 	}
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;

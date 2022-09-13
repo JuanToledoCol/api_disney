@@ -29,15 +29,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class UsuarioImpl {
-	
+
 	@Value("${jwt.clave}")
 	private String keySecret;
-	
+
 	@Autowired
 	private UsuarioDao repository;
-	
+
 	private UsuarioConv converter = new UsuarioConv();
-	
+
 	@Transactional
 	public Usuario signUp(Usuario usuario) {
 		try {
@@ -127,5 +127,5 @@ public class UsuarioImpl {
 		BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
 		return passEncoder.matches(request, usuario.getClave());
 	}
-	
+
 }
