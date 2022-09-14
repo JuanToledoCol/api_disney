@@ -17,3 +17,7 @@ spring.jpa.hibernate.ddl-auto=create
 para que Spring data JPA se encargue de crear las tablas.
 
 tambien debe tener en cuenta el usuario y contraseña para acceder a la BD.
+
+# Servicio email
+ 
+Estoy a la espera de que el equpo de Sendgrid me pueda dar acceso para poder crear ésta parte de la prueba.
