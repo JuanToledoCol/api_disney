@@ -1,0 +1,991 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/movies/:
+    get:
+      tags:
+      - pelicula-serie-controller
+      summary: Mostrar todas las peliculas con sus detalles.
+      description: "<p>Puede filtrar por 1 de los siguientes parametros: 'name', 'genre',\
+        \ 'order'.</br><b>name:</b> Nombre de la pelicula.</br><b>genre:</b> Genero.</br><b>order:</b>\
+        \ Puede ordenar con los siguientes valores: ASC | DESC</p></br><p>Para acceder\
+        \ al endpoint debe pasar un token de seguridad JWT puede hacer el proceso\
+        \ desde los siguientes endpoints: </br><b>SignUp:</b> /api/auth/signup </br><b>Login:</b>\
+        \ /api/auth/login</p>"
+      operationId: findAll
+      parameters:
+      - name: name
+        in: query
+        description: Nombre de la pelicula.
+      - name: genre
+        in: query
+        description: Genero de la pelicula.
+      - name: order
+        in: query
+        description: Orden
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content: {}
+        "404":
+          description: Movie not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found movie/S
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeliculaSerieDTO'
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - pelicula-serie-controller
+      summary: Actualizar una pelicula.
+      description: "<p>Para actualizar una pelicula debe pasar la entidad completa.</p></br><p>Para\
+        \ acceder al endpoint debe pasar un token de seguridad JWT puede hacer el\
+        \ proceso desde los siguientes endpoints: </br><b>SignUp:</b> /api/auth/signup\
+        \ </br><b>Login:</b> /api/auth/login</p>"
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PeliculaSerie'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content: {}
+        "404":
+          description: Movie not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Created movie.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeliculaSerieDTO'
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - pelicula-serie-controller
+      summary: Crear una pelicula.
+      description: "<p>Para Crear una pelicula debe pasar la entidad completa sin\
+        \ el idPeliculaSerie</p></br><p>Para acceder al endpoint debe pasar un token\
+        \ de seguridad JWT puede hacer el proceso desde los siguientes endpoints:\
+        \ </br><b>SignUp:</b> /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PeliculaSerie'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Movie not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "201":
+          description: Created movie/S
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeliculaSerie'
+      security:
+      - Bearer: []
+  /api/genders/:
+    get:
+      tags:
+      - genero-controller
+      summary: Mostrar todas los generos con sus detalles.
+      description: "<p>Puede filtrar por 1 de los siguientes parametros: 'name', 'peliculas'.</br><b>name:</b>\
+        \ Nombre del genero.</br><b>pelicula:</b> ID de una pelicula. Esto traera\
+        \ la entidad completa.</p></br><p>Para acceder al endpoint debe pasar un token\
+        \ de seguridad JWT puede hacer el proceso desde los siguientes endpoints:\
+        \ </br><b>SignUp:</b> /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: findAll_1
+      parameters:
+      - name: name
+        in: query
+        description: Nombre del genero.
+      - name: pelicula
+        in: query
+        description: Id de la pelicula.
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content: {}
+        "404":
+          description: Gender not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found gender/S
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneroDTO'
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - genero-controller
+      summary: Actualizar un genero.
+      description: "<p>Para actualizar un genero debe pasar la entidad completa.</p></br><p>Para\
+        \ acceder al endpoint debe pasar un token de seguridad JWT puede hacer el\
+        \ proceso desde los siguientes endpoints: </br><b>SignUp:</b> /api/auth/signup\
+        \ </br><b>Login:</b> /api/auth/login</p>"
+      operationId: update_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genero'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content: {}
+        "404":
+          description: Gender not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Created gender.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneroDTO'
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - genero-controller
+      summary: Crear un genero.
+      description: "<p>Para Crear un genero debe pasar la entidad completa sin el\
+        \ idGenero</p></br><p>Para acceder al endpoint debe pasar un token de seguridad\
+        \ JWT puede hacer el proceso desde los siguientes endpoints: </br><b>SignUp:</b>\
+        \ /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genero'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Gender not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "201":
+          description: Created gender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genero'
+      security:
+      - Bearer: []
+  /api/characters/:
+    get:
+      tags:
+      - personaje-controller
+      summary: Mostrar todos los personajes con sus detalles.
+      description: "<p>Puede filtrar por 1 de los siguientes parametros: 'name', 'age',\
+        \ 'peso', 'movie'.</br><b>name:</b> nombre del personaje.</br><b>age:</b>\
+        \ edad del personaje.</br><b>peso:</b> peso del personaje.</br><b>movie:</b>\
+        \ ID de la pelicula, esto retorna todos los personajes que pertenecen a esa\
+        \ pelicula.</p></br><p>Para acceder al endpoint debe pasar un token de seguridad\
+        \ JWT puede hacer el proceso desde los siguientes endpoints: </br><b>SignUp:</b>\
+        \ /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: findAll_2
+      parameters:
+      - name: name
+        in: query
+        description: Nombre del personaje.
+      - name: age
+        in: query
+        description: Edad del personaje.
+      - name: peso
+        in: query
+        description: Peso del personaje.
+      - name: movie
+        in: query
+        description: "Id de la pelicula, traera los personajes que aparecen en ella."
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content: {}
+        "404":
+          description: Character not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found character/S
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonajeDTO'
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - personaje-controller
+      summary: Actualizar un personaje.
+      description: "<p>Para actualizar un personaje debe pasar la entidad completa.</p></br><p>Para\
+        \ acceder al endpoint debe pasar un token de seguridad JWT puede hacer el\
+        \ proceso desde los siguientes endpoints: </br><b>SignUp:</b> /api/auth/signup\
+        \ </br><b>Login:</b> /api/auth/login</p>"
+      operationId: update_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Personaje'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Character not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Updated character/S
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonajeDTO'
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - personaje-controller
+      summary: Crear un personaje.
+      description: "<p>Para Crear un personaje debe pasar la entidad completa sin\
+        \ el idPersonaje</p></br><p>Para acceder al endpoint debe pasar un token de\
+        \ seguridad JWT puede hacer el proceso desde los siguientes endpoints: </br><b>SignUp:</b>\
+        \ /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: create_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Personaje'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Character not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "201":
+          description: Created character/S
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personaje'
+      security:
+      - Bearer: []
+  /api/add-gender-movie/:
+    put:
+      tags:
+      - rel-genero-pelicula-controller
+      summary: Actualizar la relacion de una pelicula con un genero
+      description: "<p>Para actualizar la relacion solo deberá pasar los ID de las\
+        \ entidades, no debe incluir el resto del cuerpo de cada entidad."
+      operationId: update_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelGeneroPelicula'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Create relation movie on gender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelGeneroPelicula'
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - rel-genero-pelicula-controller
+      summary: Relacionar una pelicula con un genero
+      description: <p>Para crear la relacion solo deberá pasar el ID del genero y
+        el ID de la pelicula. No debe incluir el idRelGeneroPelicula ni el cuerpo
+        de las otras entidades.
+      operationId: create_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelGeneroPelicula'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Create relation movie on gender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelGeneroPelicula'
+      security:
+      - Bearer: []
+  /api/add-character-movie/:
+    put:
+      tags:
+      - rel-personaje-pelicula-controller
+      summary: Actualizar la relacion de un personaje con una pelicula.
+      description: "<p>Para actualizar la relacion solo deberá pasar los ID de las\
+        \ entidades, no debe incluir el resto del cuerpo de cada entidad."
+      operationId: update_4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelPersonajePelicula'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Create relation character on movie.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelPersonajePelicula'
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - rel-personaje-pelicula-controller
+      summary: Relacionar un personaje con una pelicula.
+      description: <p>Para crear la relacion solo deberá pasar el ID del personaje
+        y el ID de la pelicula. No debe incluir el idRelPersonajePelicula ni el cuerpo
+        de las otras entidades.
+      operationId: create_4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelPersonajePelicula'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Create relation character on movie.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelPersonajePelicula'
+      security:
+      - Bearer: []
+  /api/auth/signup:
+    post:
+      tags:
+      - auth-controller
+      summary: Registrar un usuario
+      description: El registro de usuario requiere del nombre de usuario y una contraseña.
+      operationId: signUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioDTO'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "201":
+          description: SignUp success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsuarioDTO'
+  /api/auth/login:
+    post:
+      tags:
+      - auth-controller
+      summary: Iniciar sesion
+      description: "El inicio de sesión requiere de un usuario y una clave registrada\
+        \ en la BD</br> Si el inicio de sesión es correcto, tendremos un token para\
+        \ poder acceder a los demás servicios."
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioDTO'
+        required: true
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsuarioDTO'
+  /api/movies/{idPeliculaSerie}:
+    delete:
+      tags:
+      - pelicula-serie-controller
+      summary: Borrar una pelicula.
+      description: "<p>Para borrar una pelicula debe pasar el ID como parametro.Adicionalmente\
+        \ usted debe asegurarse de que la pelicula no este asociado a ninguna relacion\
+        \ con algun Genero o Personaje.</p></br><p>Para acceder al endpoint debe pasar\
+        \ un token de seguridad JWT puede hacer el proceso desde los siguientes endpoints:\
+        \ </br><b>SignUp:</b> /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: delete
+      parameters:
+      - name: idPeliculaSerie
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Movie not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Delete movie
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer: []
+  /api/genders/{idGenero}:
+    delete:
+      tags:
+      - genero-controller
+      summary: Borrar un genero.
+      description: "<p>Para borrar un genero debe pasar el ID como parametro.Adicionalmente\
+        \ usted debe asegurarse de que el genero no este asociado a ninguna relacion\
+        \ con alguna pelicula.</p></br><p>Para acceder al endpoint debe pasar un token\
+        \ de seguridad JWT puede hacer el proceso desde los siguientes endpoints:\
+        \ </br><b>SignUp:</b> /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: delete_1
+      parameters:
+      - name: idGenero
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Gender not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Delete gender
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer: []
+  /api/characters/{idPersonaje}:
+    delete:
+      tags:
+      - personaje-controller
+      summary: Borrar un personaje.
+      description: "<p>Para borrar un personaje debe pasar el ID como parametro.Adicionalmente\
+        \ usted debe asegurarse de que el personaje no este asociado a ninguna relacion\
+        \ con alguna pelicula.</p></br><p>Para acceder al endpoint debe pasar un token\
+        \ de seguridad JWT puede hacer el proceso desde los siguientes endpoints:\
+        \ </br><b>SignUp:</b> /api/auth/signup </br><b>Login:</b> /api/auth/login</p>"
+      operationId: delete_2
+      parameters:
+      - name: idPersonaje
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Character not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Delete character/S
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer: []
+  /api/add-gender-movie/{idGenPerPel}:
+    delete:
+      tags:
+      - rel-genero-pelicula-controller
+      summary: Borrar una pelicula de un genero
+      description: "<p>Para borrar una pelicula de un genero debe pasar el idRelGeneroPelicula\
+        \ que contiene la relacion que quiere eliminar, como parametro."
+      operationId: delete_3
+      parameters:
+      - name: idGenPerPel
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Delete movie of gender
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer: []
+  /api/add-character-movie/{idRelPerPel}:
+    delete:
+      tags:
+      - rel-personaje-pelicula-controller
+      summary: Borrar un personaje de una pelicula.
+      description: "<p>Para borrar un personaje de una pelicula debe pasar el idRelPersonajePelicula\
+        \ que contiene la relacion que quiere eliminar, como parametro."
+      operationId: delete_4
+      parameters:
+      - name: idRelPerPel
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: 'Delete character of movie '
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer: []
+components:
+  schemas:
+    PeliculaSerie:
+      type: object
+      properties:
+        idPeliculaSerie:
+          type: integer
+          format: int64
+        titulo:
+          type: string
+        fechaCreacion:
+          type: string
+          format: date
+        calificacion:
+          type: integer
+          format: int32
+        imagen:
+          type: string
+    Genero:
+      type: object
+      properties:
+        idGenero:
+          type: integer
+          format: int64
+        nombreGenero:
+          type: string
+        imagen:
+          type: string
+    PeliculaSerieDTO:
+      type: object
+      properties:
+        idPeliculasSeries:
+          type: integer
+          format: int64
+        titulo:
+          type: string
+        fechaCreacion:
+          type: string
+          format: date
+        calificacion:
+          type: integer
+          format: int32
+        imagen:
+          type: string
+        generos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genero'
+        personajes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Personaje'
+    Personaje:
+      type: object
+      properties:
+        idPersonaje:
+          type: integer
+          format: int64
+        nombrePersonaje:
+          type: string
+        imagen:
+          type: string
+        edad:
+          type: integer
+          format: int32
+        peso:
+          type: number
+          format: double
+        historia:
+          type: string
+    GeneroDTO:
+      type: object
+      properties:
+        idGenero:
+          type: integer
+          format: int64
+        nombreGenero:
+          type: string
+        imagen:
+          type: string
+        peliculasSeries:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeliculaSerie'
+    PersonajeDTO:
+      type: object
+      properties:
+        idPersonaje:
+          type: integer
+          format: int64
+        nombrePersonaje:
+          type: string
+        imagen:
+          type: string
+        edad:
+          type: integer
+          format: int32
+        peso:
+          type: number
+          format: double
+        historia:
+          type: string
+        peliculaSerie:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeliculaSerie'
+    RelGeneroPelicula:
+      type: object
+      properties:
+        idRelGeneroPelicula:
+          type: integer
+          format: int64
+        idGenero:
+          $ref: '#/components/schemas/Genero'
+        idPeliculaSerie:
+          $ref: '#/components/schemas/PeliculaSerie'
+    RelPersonajePelicula:
+      type: object
+      properties:
+        idRelPersonajePelicula:
+          type: integer
+          format: int64
+        idPersonaje:
+          $ref: '#/components/schemas/Personaje'
+        idPeliculaSerie:
+          $ref: '#/components/schemas/PeliculaSerie'
+    UsuarioDTO:
+      type: object
+      properties:
+        usuario:
+          type: string
+        clave:
+          type: string
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
