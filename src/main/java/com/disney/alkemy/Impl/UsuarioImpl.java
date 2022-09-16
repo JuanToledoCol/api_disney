@@ -1,5 +1,6 @@
 package com.disney.alkemy.Impl;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import com.disney.alkemy.exceptions.NoDataFoundException;
 import com.disney.alkemy.exceptions.ValidateServiceException;
 import com.disney.alkemy.models.Usuario;
 import com.disney.alkemy.validators.UsuarioValidator;
-
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -32,9 +32,11 @@ public class UsuarioImpl {
 
 	@Value("${jwt.clave}")
 	private String keySecret;
-
+	
 	@Autowired
 	private UsuarioDao repository;
+	@Autowired
+	private SendEmailImpl sendEmail;
 
 	private UsuarioConv converter = new UsuarioConv();
 
@@ -47,6 +49,7 @@ public class UsuarioImpl {
 			}
 			UsuarioValidator.validate(usuario);
 			Usuario usuarioN = repository.save(EncoderPass(usuario));
+			send(usuario);
 			return usuarioN;
 		} catch (NoDataFoundException | ValidateServiceException e) {
 			log.info(e.getMessage(), e);
@@ -83,12 +86,8 @@ public class UsuarioImpl {
 		Date now = new Date();
 		Date expireDate = new Date(now.getTime() + (1000 * 60 * 60));
 
-		return Jwts.builder()
-				.setSubject(usuario.getUsuario())
-				.setIssuedAt(now)
-				.setExpiration(expireDate)
-				.signWith(SignatureAlgorithm.HS512, keySecret)
-				.compact();
+		return Jwts.builder().setSubject(usuario.getUsuario()).setIssuedAt(now).setExpiration(expireDate)
+				.signWith(SignatureAlgorithm.HS512, keySecret).compact();
 	}
 
 	public boolean validateToken(String token) {
@@ -101,7 +100,7 @@ public class UsuarioImpl {
 			log.error("JWT was not correctly constructed and should be rejected.");
 		} catch (SignatureException e) {
 			log.error("signature or verifying an existing signature of a JWT failed.");
-		}catch (ExpiredJwtException e) {
+		} catch (ExpiredJwtException e) {
 			log.error("JWT was accepted after it expired and must be rejected.");
 		}
 		return false;
@@ -119,13 +118,17 @@ public class UsuarioImpl {
 
 	private Usuario EncoderPass(Usuario usuario) {
 		BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder(16);
-		usuario.setClave(passEncoder.encode(usuario.getClave())) ;
+		usuario.setClave(passEncoder.encode(usuario.getClave()));
 		return usuario;
 	}
 
 	private boolean validatePass(Usuario usuario, String request) {
 		BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
 		return passEncoder.matches(request, usuario.getClave());
+	}
+	
+	private String send(Usuario usuario) throws IOException {
+		return sendEmail.sendTextEmail(usuario);
 	}
 
 }
