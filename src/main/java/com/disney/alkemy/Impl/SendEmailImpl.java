@@ -32,7 +32,7 @@ public class SendEmailImpl {
 		mail.addPersonalization(personalization);
 		mail.setTemplateId("d-574ff84b63c04cc6abf65e8ae85373c8");
 
-		SendGrid sg = new SendGrid("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");
+		SendGrid sg = new SendGrid("generateApiKey");
 		Request request = new Request();
 		try {
 			request.setMethod(Method.POST);
